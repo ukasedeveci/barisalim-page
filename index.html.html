@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barışalım mı? 🐳</title>
+  <style>
+   body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #a0c4ff 0%, #ffafcc 100%);
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  position: relative;
+}
+
+
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding-top: 3vh;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+    }
+
+    h1 {
+      font-size: 3vh;
+    }
+
+    .message {
+      font-size: 2.2vh;
+      margin-bottom: 2vh;
+      font-style: italic;
+    }
+
+    .buttons {
+      position: relative;
+      display: inline-block;
+    }
+
+    button {
+      padding: 1vh 2vw;
+      font-size: 2vh;
+      border: none;
+      border-radius: 1vh;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: absolute;
+    }
+
+    #yesBtn {
+      background-color: hsl(174, 61%, 45%);
+      position: static;
+      top: -30%;
+      left: -30%;
+      transform: translateX(-30%);
+      z-index: 2;
+      animation: shake 0.5s infinite;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      margin-bottom: 2vh;
+      padding: 1vh 3vw;
+      border: 2px solid #fff;
+      color: #026df8;
+      font-family: 'Dancing Script', cursive;
+      font-weight: bold, italic;
+    }
+
+    #noBtn {
+      background-color: hsl(174, 61%, 51%);
+      position: absolute;
+      top: 140%;
+      left: 23%;
+      transform: translateX(0%);
+      z-index: 2;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      padding: 1vh 3vw;
+      border: 2px solid #fff;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      color: #ffffff;
+      font-size: 2vh;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .emoji-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 2vh;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+
+    .fireworks {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 4vh;
+      color: yellow;
+      display: none;
+      z-index: 3;
+    }
+
+    .note {
+      margin-top: 2vh;
+      font-size: 1.8vh;
+      color: #fff;
+    }
+
+
+
+/* Ortadaki ana balina */
+.main-whale {
+  position: fixed;
+  top: 40%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  z-index: 0;
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* Whale_1: Sol üst köşeye */
+.whale-1 {
+  position: fixed;
+  top: 3%;
+  left: 60%;
+  width: 100px;
+  opacity: 0.8;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Whale_3: Sağ alt köşeye */
+.whale-3 {
+  position: fixed;
+  top: 3%;
+  left: 27%;
+  width: 200px;
+  opacity: 0.8;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+  <div class="container" id="mainContainer">
+    <h1>Ilgın🐳</h1>
+    <div class="message" id="mainMessage">"Ben Böyle tatlış birini kaybedememmm... Barışalımmmmm."</div>
+    <div class="buttons">
+      <button id="yesBtn">☺️ Barışalım ☺️</button>
+      <button id="noBtn">Barışmayalım</button>
+    </div>
+    <div class="emoji-rain" id="emojiRain"></div>
+    <div class="fireworks" id="fireworks">🎆🎉🎇</div>
+    <div class="note" id="note"></div>
+  </div>
+
+  <img src="whale.png" class="main-whale" alt="Ana Balina">
+<img src="whale_1.png" class="whale-1" alt="Balina 1">
+<img src="whale_3.png" class="whale-3" alt="Balina 3">
+
+     
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const note = document.getElementById('note');
+    const fireworks = document.getElementById('fireworks');
+    const mainMessage = document.getElementById('mainMessage');
+    const container = document.getElementById('mainContainer');
+
+    noBtn.style.top = '140%';
+    noBtn.style.left = '5%';
+
+    const spots = [
+      { top: '900%', left: '0%' },
+      { top: '500%', left: '-110%' },
+      { top: '500%', left: '110%' },
+      { top: '140%', left: '0%' },
+      { top: '300%', left: '0%' },
+      { top: '700%', left: '0%' },
+      { top: '600%', left: '-110%' },
+      { top: '600%', left: '110%' }
+    ];
+
+    const phrases = [
+      "😔Noowww😔",
+      "😔 Üzülürümmm 😔",
+      "Nidenn😔",
+      "😔😔😔😔😔😔😔",
+      "😔 Olamaşşşşşş 😔",
+      "😔 Barışırız Barışırız 😔 ",
+      "😔 Barışalım yahuuu 😔",
+      "😔 Hügggggggggggggg 😔"
+    ];
+
+    let idx = 0;
+
+    function jump() {
+      const sp = spots[idx % spots.length];
+      noBtn.style.top = sp.top;
+      noBtn.style.left = sp.left;
+      noBtn.innerText = phrases[idx % phrases.length];
+      idx++;
+      yesBtn.style.transform = `scale(${1 + idx * 0.2})`;
+      yesBtn.style.animation = 'shake 0.3s';
+    }
+
+    noBtn.addEventListener('mouseenter', jump);
+    noBtn.addEventListener('click', jump);
+
+    yesBtn.addEventListener('click', () => {
+      mainMessage.innerText = "Ooooo yeeee 💕 Barıştık! 😍💖";
+      note.innerHTML = 
+        "<div style='text-align: center; font-size: 18px;'>💌 Şimdik orj hesabımdaki engeli kaldır 💌<br>" +
+        "💘 Sonracikk ben takip at atcam 😌<br>" +
+        "<h1> 💞💞💞💞💞💞💞💞💞<h1> </div>";
+      noBtn.style.display = 'none';
+      yesBtn.style.display = 'none';
+      fireworks.style.display = 'block';
+      document.body.style.background = 'linear-gradient(pink, hotpink)';
+    });
+
+    const er = document.getElementById('emojiRain');
+    const emojis = ['💖', '🐳', '💘', '💕', '💞', '💓', '💗'];
+    function createEmoji() {
+      const e = document.createElement('div');
+      e.classList.add('emoji');
+      e.style.left = Math.random() * 100 + 'vw';
+      e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      er.appendChild(e);
+      setTimeout(() => e.remove(), 3000);
+    }
+    setInterval(createEmoji, 200);
+  </script>
+</body>
+</html>
